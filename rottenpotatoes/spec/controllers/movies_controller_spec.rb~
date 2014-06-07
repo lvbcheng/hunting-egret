@@ -1,0 +1,81 @@
+require 'spec_helper'
+
+describe MoviesController do
+#  describe 'show' do
+#    it 'should show movies with no director'
+#    it 'should show movies with a director'
+#  end
+#
+#  describe 'index' do
+#    it 'should display all movies'
+#    it 'should sort movies by title'
+#    it 'should sort movies by release date'
+#    it 'should sort movies by director'
+#    it 'should filter movies'
+#  end
+#
+#  describe 'new' do
+#    it 'should allow new of a movie with no director'
+#    it 'should allow new of a movie with a director'
+#  end
+#
+#  describe 'create' do
+#    it 'should allow creation of a movie with no director'
+#    it 'should allow creation of a movie with a director'
+#  end
+#
+#  describe 'edit' do
+#    it 'should allow edit of a movie with no director'
+#    it 'should allow edit of a movie with a director'
+#  end
+#
+#  describe 'update' do
+#    it 'should update a movie with no director to director'
+#    it 'should update a movie with a director to no director'
+#  end
+
+  describe 'sdirector' do
+#    it 'should display all movies'
+#    it 'should sort movies by title'
+#    it 'should sort movies by release date'
+#    it 'should sort movies by director'
+#    it 'should filter movies by rating'
+    it 'should call the Movie model to find the movie with id=24' do
+      fake_movie = mock('Movie', :id=>"24", :director => "Bob")
+      Movie.should_receive(:find).with("24").and_return(fake_movie)
+      get :sdirector, :id => "24"
+    end
+
+    it 'should find all the movies by the same director' do
+      fake_movie = double('Movie', :id=> "26", :director => "Bob")
+      Movie.should_receive(:find).with("26").and_return(fake_movie)
+      # Movie.stub(:find).and_return(fake_movie)
+      fake_movies = [double('Movie', :id => "26", :director => "Bob"), double('Movie2', :id => "25", :director => "Bob")]
+      get :sdirector, :id => "26"
+      Movie.should_receive(:find_all_by_director).with("Bob").and_return(fake_movies)
+    end
+#
+    it 'should select the sdirector template for rendering'
+#    do
+#      fake_movie = double('Movie', :id=> 24, :director => "Bob")
+#      Movie.stub(:find).and_return(fake_movie)
+#      debugger
+#      fake_movies = [double('Movie', :director => fake_movie.director), double('Movie', :director => fake_movie.director)]
+#      Movie.stub(:find_all_by_director).and_return(fake_movies)
+#      response.should render_template('sdirector')
+#   end
+#
+#   it 'should make the result available to the template' do
+#      fake_movie = double('Movie')
+#      Movie.stub(:find).and_return(fake_movie)
+#      assign(:the_movie) == fake_movie
+#    end
+#
+#    it 'should make the collection of movies available to that template' do
+#      fake_movies = [double('Movie'), double('Movie')]
+#      Movie.stub(:find).and_return(fake_movies)
+#      assign(:movies) == fake_movies
+#    end
+  end
+end
+

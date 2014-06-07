@@ -1,0 +1,22 @@
+-# in app/views/movies/directors.html.haml
+
+%h2 #{@the_movie.director} directed these movies:
+
+%table#movies
+  %thead
+    %tr
+      %th{:class => @title_header}= link_to 'Movie Title', sdirector_movie_path(:sort => 'title', :ratings => @selected_ratings), :id => 'title_header'
+      %th Rating
+      %th{:class => @date_header}= link_to 'Release Date', sdirector_movie_path(:sort => 'release_date', :ratings => @selected_ratings), :id => 'release_date_header'
+      %th{:class => @director_header}= link_to 'Director', sdirector_movie_path(:sort => 'director', :ratings => @selected_ratings), :id => 'director_header'
+      %th More Info
+  %tbody
+    - @movies.each do |movie|
+      %tr
+        %td= movie.title 
+        %td= movie.rating
+        %td= movie.release_date
+        %td= movie.director
+        %td= link_to "More about #{movie.title}", movie_path(movie)
+
+= link_to 'Back to movie list', movies_path

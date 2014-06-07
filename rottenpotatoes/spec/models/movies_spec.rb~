@@ -1,0 +1,12 @@
+require 'spec_helper'
+
+describe Movie do
+  let {:movie1} { Movie.new :title => 'Up!', :rating => 'G', :description => nil, :release_date=>'1992-11-25 00:00:00', :director=>nil }
+  let {:movie1} { Movie.new :title => 'Godfather III', :rating => 'G', :description => nil, :release_date=>'1992-11-25 00:00:00', :director=>nil }
+
+  it 'should
+  it 'should return all ratings' do
+    Movie.all_ratings.should == ['G','PG','PG-13','NC-17','R']
+  end
+end
+
