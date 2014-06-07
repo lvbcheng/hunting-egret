@@ -121,6 +121,7 @@ Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
 end
 
 Then /^(?:|I )should not see "([^"]*)"$/ do |text|
+
   if page.respond_to? :should
     page.should have_no_content(text)
   else
@@ -229,7 +230,6 @@ end
 
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   current_path = URI.parse(current_url).path
-
   if current_path.respond_to? :should
     current_path.should == path_to(page_name)
   else

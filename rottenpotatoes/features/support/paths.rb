@@ -11,6 +11,7 @@ module NavigationHelpers
   # step definition in web_steps.rb
   #
   def path_to(page_name)
+
     case page_name
 
     when /^the home\s?page$/
@@ -27,8 +28,8 @@ module NavigationHelpers
       edit_movie_path(Movie.find_by_title($1))
     when /^the details page for "(.*)"/ then
       movie_path(Movie.find_by_title($1))
-    when /^the Similar Movies page for "(.*)"$/ then
-      sdirector_movie_path(Movie.find_by_title($1))
+    when /^the Similar Movies page for "(.*)"/ then
+      sdirector_path(Movie.find_by_title($1))
     else
       begin
         page_name =~ /^the (.*) page$/

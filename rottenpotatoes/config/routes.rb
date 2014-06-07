@@ -15,12 +15,12 @@ Rottenpotatoes::Application.routes.draw do
   resources :movies do
     # member means that the routes inside work on a member of this resource
     # See guides.rubyonrails.org/routing.html
-    member do
-      get :sdirector
-    end
+#    member do
+#      get :sdirector
+#    end
   end
 
-
+  match '/movies/:id/sdirector' => 'movies#sdirector', :as => 'sdirector'
 
   # Sample resource route with options:
   #   resources :products do
