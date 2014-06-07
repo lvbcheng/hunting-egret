@@ -12,7 +12,15 @@ Rottenpotatoes::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resources :movies
+  resources :movies do
+    # member means that the routes inside work on a member of this resource
+    # See guides.rubyonrails.org/routing.html
+    member do
+      get :sdirector
+    end
+  end
+
+
 
   # Sample resource route with options:
   #   resources :products do

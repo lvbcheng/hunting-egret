@@ -13,14 +13,16 @@ class MoviesController < ApplicationController
       ordering,@title_header = {:order => :title}, 'hilite'
     when 'release_date'
       ordering,@date_header = {:order => :release_date}, 'hilite'
+    when 'director'
+      ordering,@director_header = {:order => :director}, 'hilite'
     end
     @all_ratings = Movie.all_ratings
     @selected_ratings = params[:ratings] || session[:ratings] || {}
-    
+
     if @selected_ratings == {}
       @selected_ratings = Hash[@all_ratings.map {|rating| [rating, rating]}]
     end
-    
+
     if params[:sort] != session[:sort]
       session[:sort] = sort
       flash.keep
@@ -64,4 +66,17 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
 
+  # This action deals with requests for all movies by a specific director
+  def sdirector
+    @the_movie = Movie.find(params[:id])
+    if @the_movie.director.nil?
+      flash[:notice] = "'#{@the_movie.title}' has no director info"
+      redirect_to movies_path and return
+    end
+    @movies    = Movie.find_all_by_director(@the_movie.director)
+    if @movies.count == 0
+      flash[:notice] = "No movies found with director #{@the_movie.director}"
+      redirect_to movies_path and return
+    end
+  end
 end
