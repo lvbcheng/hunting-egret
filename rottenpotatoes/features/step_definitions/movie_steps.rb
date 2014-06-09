@@ -9,15 +9,6 @@ Given /the following movies exist/ do |movies_table|
   end
 end
 
-# Make sure that one string (regexp) occurs before or after another one
-#   on the same page
-
-Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
-  #  ensure that that e1 occurs before e2.
-  #  page.body is the entire content of the page as a string.
-  page.body.should =~ /.*#{e1}.*#{e2}.*/
-end
-
 # Make it easier to express checking of several boxes at once
 #  "When I uncheck the following ratings: PG, G, R"
 #  "When I check the following ratings: G"
@@ -33,14 +24,6 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
       step %Q{I check "ratings[#{r}]"}
     end
   }
-end
-
-Then /I should see all the movies/ do
-  movie_titles = @movies_created.inject([]) { |a,m| a << m['title']; a }
-  # Movie.find_all_by_title(movie_titles).count.should == 10
-  movies_titles.each do |m|
-    page.should have_content(m)
-  end
 end
 
 # Verify the director

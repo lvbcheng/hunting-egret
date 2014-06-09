@@ -19,10 +19,10 @@ describe MoviesController do
 #    it 'should allow new of a movie with a director'
 #  end
 #
-#  describe 'create' do
-#    it 'should allow creation of a movie with no director'
-#    it 'should allow creation of a movie with a director'
-#  end
+# describe 'create' do
+#  it 'should allow creation of a movie with no director'
+#  it 'should allow creation of a movie with a director'
+# end
 #
 #  describe 'edit' do
 #    it 'should allow edit of a movie with no director'
@@ -30,7 +30,13 @@ describe MoviesController do
 #  end
 #
 #  describe 'update' do
-#    it 'should update a movie with no director to director'
+#    before(:each) do
+#      @fake_movie = Factory(:movie)
+#    end
+#    it 'should update a movie with director to no director' do
+#      @attr = {:director=>nil}
+#      put :update, :id=>@fake_movie.id, :movie => @attr
+#    end
 #    it 'should update a movie with a director to no director'
 #  end
 
@@ -87,6 +93,15 @@ describe MoviesController do
       flash[:notice].should eq("'#{no_dir_mov1.title}' has no director info")
       response.should redirect_to(:action => "index")
     end
+
+   it 'should deal with potentially bogus director info' do
+     # stub the methods
+     Movie.stub(:find).and_return(fake_movie1)
+     Movie.stub(:find_all_by_director).and_return([]) # return empty
+     get :sdirector, :id => fake_movie1.id
+     flash[:notice].should eq("No movies found with director #{fake_movie1.director}")
+     response.should redirect_to(:action => "index")
+   end
   end
 end
 

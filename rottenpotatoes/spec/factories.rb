@@ -1,9 +1,8 @@
 # Copied from railstutorial.org
-FactoryGirl.define do
-  factory :user do
-    name     "Michael Hartl"
-    email    "michael@example.com"
-    password "foobar"
-    password_confirmation "foobar"
+FactoryGirl.define "movie" do
+    title        "Godzilla"
+    id           "100"
+    release_date "2012-04-05 12:13:14"
+    director     "Godzilla P. Bach"
   end
 end

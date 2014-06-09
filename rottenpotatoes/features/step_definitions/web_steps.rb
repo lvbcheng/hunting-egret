@@ -253,3 +253,20 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+# Make sure that one string (regexp) occurs before or after another one
+#   on the same page
+
+Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
+  #  ensure that that e1 occurs before e2.
+  #  page.body is the entire content of the page as a string.
+  (page.body =~ /.*#{e1}/).should <= (page.body =~ /.*#{e2}/)
+end
+
+Then /I should see all the movies/ do
+  movie_titles = @movies_created.inject([]) { |a,m| a << m['title']; a }
+  # Movie.find_all_by_title(movie_titles).count.should == 10
+  movie_titles.each do |m|
+    page.should have_content(m)
+  end
+end
